@@ -1,0 +1,13 @@
+{
+  "name": "polywrap-bootstrap",
+  "description": "Polywrap Monorepo",
+  "license": "MIT",
+  "version": "0.1.1",
+  "bin": {
+    "polywrap-bootstrap": "bin/polywrap-bootstrap"
+  },
+  "dependencies": {
+    "polywrap": "latest"
+  }
+}
+

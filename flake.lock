@@ -15,6 +15,23 @@
         "type": "github"
       }
     },
+    "monorepo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1657697356,
+        "narHash": "sha256-aa8f62b1eg6vP5C/pgJvbhCarp/o7bMpmORtdfjOXBc=",
+        "owner": "polywrap",
+        "repo": "monorepo",
+        "rev": "4eac9010f4b3cb7cd041854a737bd84e176d816c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "polywrap",
+        "ref": "origin-dev",
+        "repo": "monorepo",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1656847440,
@@ -49,6 +66,7 @@
     },
     "root": {
       "inputs": {
+        "monorepo": "monorepo",
         "nixpkgs": "nixpkgs",
         "nixpkgs-nodejs": "nixpkgs-nodejs",
         "rust-overlay": "rust-overlay"
