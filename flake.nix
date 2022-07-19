@@ -1,7 +1,7 @@
 {
   description = "polywrap";
 
-  inputs = {
+  inputs = rec {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-nodejs.url =
       "github:nixos/nixpkgs?rev=6d02a514db95d3179f001a5a204595f17b89cb32";
@@ -48,7 +48,7 @@
         yarnLock = monorepo + "/yarn.lock";
         msgpack-js = pkgs.mkYarnPackage rec {
           name = "msgpack-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/msgpack";
           inherit yarnLock;
           preConfigure = ''
@@ -58,7 +58,7 @@
         };
         asyncify-js = pkgs.mkYarnPackage rec {
           name = "asyncify-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/asyncify";
           inherit yarnLock;
           preConfigure = ''
@@ -68,7 +68,7 @@
         };
         tracing-js = pkgs.mkYarnPackage rec {
           name = "tracing-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/tracing";
           inherit yarnLock;
           preConfigure = ''
@@ -78,7 +78,7 @@
         };
         os-js = pkgs.mkYarnPackage rec {
           name = "os-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/os";
           inherit yarnLock;
           preConfigure = ''
@@ -88,7 +88,7 @@
         };
         wasm-as = pkgs.mkYarnPackage rec {
           name = "wasm-as";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/wasm/as";
           inherit yarnLock;
           preConfigure = ''
@@ -98,26 +98,26 @@
         };
         test-cases = pkgs.mkYarnPackage rec {
           name = "test-cases";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/test-cases";
           inherit yarnLock;
           workspaceDependencies = [ os-js ];
         };
         polywrap-manifest-schemas = pkgs.mkYarnPackage rec {
           name = "polywrap-manifest-schemas";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/manifests/polywrap";
           inherit yarnLock;
         };
         wrap-manifest-schemas = pkgs.mkYarnPackage rec {
           name = "wrap-manifest-schemas";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/manifests/wrap";
           inherit yarnLock;
         };
         polywrap-manifest-types-js = pkgs.mkYarnPackage rec {
           name = "polywrap-manifest-types-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/manifests/polywrap";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -137,7 +137,7 @@
         };
         wrap-manifest-types-js = pkgs.mkYarnPackage rec {
           name = "wrap-manifest-types-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/manifests/wrap";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -157,7 +157,7 @@
         };
         schema-parse = pkgs.mkYarnPackage rec {
           name = "schema-parse";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/schema/parse";
           inherit yarnLock;
           preConfigure = ''
@@ -168,7 +168,7 @@
         };
         schema-bind = pkgs.mkYarnPackage rec {
           name = "schema-bind";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/schema/bind";
           inherit yarnLock;
           preConfigure = ''
@@ -179,7 +179,7 @@
         };
         schema-compose = pkgs.mkYarnPackage rec {
           name = "schema-compose";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/schema/compose";
           inherit yarnLock;
           preConfigure = ''
@@ -190,7 +190,7 @@
         };
         core-js = pkgs.mkYarnPackage rec {
           name = "core-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/core";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -209,7 +209,7 @@
         };
         package-validation = pkgs.mkYarnPackage rec {
           name = "package-validation";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/validation";
           inherit yarnLock;
           preConfigure = ''
@@ -221,14 +221,14 @@
         };
         polywrap-bootstrap = pkgs.mkYarnPackage rec {
           name = "polywrap-bootstrap";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = ./bootstrap;
         };
         polywrap-bootstrap-bin = polywrap-bootstrap
           + "/libexec/polywrap-bootstrap/node_modules/polywrap/bin/polywrap";
         ipfs-interface = pkgs.mkYarnPackage rec {
           name = "ipfs-interface";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/interfaces/ipfs";
           inherit yarnLock;
           extraBuildInputs = [ pkgs.docker ];
@@ -251,7 +251,7 @@
           + "/libexec/@polywrap/ipfs-interface/deps/@polywrap/ipfs-interface/build/schema.graphql";
         logger-interface = pkgs.mkYarnPackage rec {
           name = "logger-interface";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/interfaces/logger";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -274,7 +274,7 @@
           + "/libexec/@polywrap/logger-interface/deps/@polywrap/logger-interface/src/schema.graphql";
         file-system-interface = pkgs.mkYarnPackage rec {
           name = "file-system-interface";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/interfaces/file-system";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -297,7 +297,7 @@
           + "/libexec/@polywrap/file-system-interface/deps/@polywrap/file-system-interface/build/schema.graphql";
         uri-resolver-interface = pkgs.mkYarnPackage rec {
           name = "uri-resolver-interface";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/interfaces/uri-resolver";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -320,7 +320,7 @@
           + "/libexec/@polywrap/uri-resolver-interface/deps/@polywrap/uri-resolver-interface/src/schema.graphql";
         ipfs-plugin-js = pkgs.mkYarnPackage rec {
           name = "ipfs-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/ipfs";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -346,7 +346,7 @@
         };
         ethereum-plugin-js = pkgs.mkYarnPackage rec {
           name = "ethereum-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/ethereum";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -372,7 +372,7 @@
         };
         fs-plugin-js = pkgs.mkYarnPackage rec {
           name = "fs-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/file-system";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -402,7 +402,7 @@
         };
         http-plugin-js = pkgs.mkYarnPackage rec {
           name = "http-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/http";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -428,7 +428,7 @@
         };
         graph-node-plugin-js = pkgs.mkYarnPackage rec {
           name = "graph-node-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/graph-node";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -451,7 +451,7 @@
         };
         logger-plugin-js = pkgs.mkYarnPackage rec {
           name = "logger-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/logger";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -477,7 +477,7 @@
         };
         sha3-plugin-js = pkgs.mkYarnPackage rec {
           name = "sha3-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/sha3";
           inherit yarnLock;
           preConfigure = ''
@@ -492,7 +492,7 @@
         };
         uts46-plugin-js = pkgs.mkYarnPackage rec {
           name = "uts46-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/uts46";
           inherit yarnLock;
           preConfigure = ''
@@ -507,7 +507,7 @@
         };
         ens-resolver-plugin-js = pkgs.mkYarnPackage rec {
           name = "ens-resolver-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/uri-resolvers/ens-resolver";
           inherit yarnLock;
           preConfigure = ''
@@ -525,7 +525,7 @@
         };
         ipfs-resolver-plugin-js = pkgs.mkYarnPackage rec {
           name = "ipfs-resolver-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/plugins/uri-resolvers/ipfs-resolver";
           inherit yarnLock;
           preConfigure = ''
@@ -546,7 +546,7 @@
         };
         fs-resolver-plugin-js = pkgs.mkYarnPackage rec {
           name = "fs-resolver-plugin-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo
             + "/packages/js/plugins/uri-resolvers/file-system-resolver";
           inherit yarnLock;
@@ -576,7 +576,7 @@
         };
         client-js = pkgs.mkYarnPackage rec {
           name = "client-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/client";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -617,7 +617,7 @@
         };
         react = pkgs.mkYarnPackage rec {
           name = "react";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/react";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -646,7 +646,7 @@
         };
         test-env-js = pkgs.mkYarnPackage rec {
           name = "test-env-js";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/js/test-env";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -667,7 +667,7 @@
         };
         polywrap = pkgs.mkYarnPackage rec {
           name = "polywrap";
-          version = "0.1.1";
+          version = (pkgs.lib.importJSON (src + "/package.json")).version;
           src = monorepo + "/packages/cli";
           inherit yarnLock;
           packageJSON = pkgs.stdenv.mkDerivation {
@@ -788,7 +788,6 @@
             pkg-config
             openssl
 
-            cargo2nix
           ];
         };
         packages = {
